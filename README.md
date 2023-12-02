@@ -2,6 +2,8 @@
 
 
 [![Discord Chat](https://img.shields.io/discord/1180545690976391251?logo=discord&style=flat-square)](https://discord.gg/fFPsTqYqUg)
+[![Crates.io](https://img.shields.io/crates/v/validit.svg)](https://crates.io/crates/validit)
+[![docs.rs](https://docs.rs/validit/badge.svg)](https://docs.rs/validit)
 
 Validate variable internal state when the variable is accessed.
 
