@@ -32,3 +32,7 @@ fn main() {
     let _x = foo.a; // Panic
 }
 ```
+
+## Contribution
+
+- 🙌 Questions? Join the [Discord channel](https://discord.gg/fFPsTqYqUg) or start a [discussion](https://github.com/drmingdrmer/validit/discussions/new).
