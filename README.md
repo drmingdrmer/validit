@@ -1,5 +1,10 @@
 # validit
 
+
+<a href="https://discord.gg/fFPsTqYqUg">
+<img src="https://img.shields.io/badge/discord-validit-0abd59" alt="discord" />
+</a>
+
 Validate variable internal state when the variable is accessed.
 
 - Implement trait `Validate` for a type `T` to define how to validate internal state of `T`.
