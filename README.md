@@ -1,9 +1,7 @@
 # validit
 
 
-<a href="https://discord.gg/fFPsTqYqUg">
-<img src="https://img.shields.io/badge/discord-validit-0abd59" alt="discord" />
-</a>
+[![Discord Chat](https://img.shields.io/discord/1180545690976391251?logo=discord&style=flat-square)](https://discord.gg/fFPsTqYqUg)
 
 Validate variable internal state when the variable is accessed.
 
