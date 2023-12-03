@@ -1,0 +1,20 @@
+use std::error::Error;
+
+use validit::Valid;
+use validit::Validate;
+
+struct Foo(u64);
+
+impl Validate for Foo {
+    fn validate(&self) -> Result<(), Box<dyn Error>> {
+        validit::less!(self.0, 10);
+        Ok(())
+    }
+}
+
+#[test]
+fn test_foo() {
+    println!("foo: {:?}", Valid::new(Foo(1)).0); // Good
+
+    // println!("invalid: {:?}", Valid::new(Foo(10)).0); // Panic
+}
