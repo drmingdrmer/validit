@@ -18,28 +18,24 @@ that `a` is always less than to `10`, you can implement `Validate` trait for `Fo
 `less!` macro to validate `a`.
 
 ```rust
-use std::error::Error;
-use validit::Validate;
-use validit::ValidateExt;
+struct Foo(u64);
 
-struct LessThan5 { v: u64 }
-
-impl Validate for LessThan5 {
-    fn validate(&self) -> Result<(), Box<dyn Error>> {
-        validit::less!(self.v, 5);
-        Ok(())
-    }
+impl validit::Validate for Foo {
+  fn validate(&self) -> Result<(), Box<dyn std::error::Error>> {
+    validit::less!(self.0, 5);
+    Ok(())
+  }
 }
 
 fn main() {
-  let v1 = LessThan5 { v: 1 }.valid();
-  let _x = v1.v; // Good
+  let v1 = Valid::new(Foo(1));
+  let _x = v1.0; // Good.
 
-  let v6 = LessThan5 { v: 6 }.valid();
-  let res = std::panic::catch_unwind(|| {
-      let _x = v6.v; // panic: panicked at 'invalid state: expect: self.v(6) < 5(5) ...
-  });
-  assert!(res.is_err());
+  let v6 = Foo(6);
+  let _x = v6.0; // No panic without validation.
+  
+  let v6 = Valid::new(Foo(6));
+  let _x = v6.0; // panic: panicked at 'invalid state: expect: self.0(6) < 5(5) ...
 }
 ```
 

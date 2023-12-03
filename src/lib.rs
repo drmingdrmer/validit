@@ -9,11 +9,12 @@
 //! `less!` macro to validate `a`.
 //! ```
 //! # use std::error::Error;
+//! # use std::panic::catch_unwind;
 //! # use validit::Validate;
 //! # use validit::ValidateExt;
-//! struct LessThan5 { v: u64 }
+//! struct Lt5 { v: u64 }
 //!
-//! impl Validate for LessThan5 {
+//! impl Validate for Lt5 {
 //!     fn validate(&self) -> Result<(), Box<dyn Error>> {
 //!         validit::less!(self.v, 5);
 //!         Ok(())
@@ -21,11 +22,11 @@
 //! }
 //!
 //! # fn main() {
-//! let v1 = LessThan5 { v: 1 }.valid();
+//! let v1 = Lt5 { v: 1 }.valid();
 //! let _x = v1.v; // Good
 //!
-//! let v6 = LessThan5 { v: 6 }.valid();
-//! let res = std::panic::catch_unwind(|| {
+//! let v6 = Lt5 { v: 6 }.valid();
+//! let res = catch_unwind(|| {
 //!     let _x = v6.v; // panic: panicked at 'invalid state: expect: self.v(6) < 5(5) ...
 //! });
 //! assert!(res.is_err());
