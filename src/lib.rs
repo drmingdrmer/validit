@@ -37,7 +37,11 @@
 
 #[cfg(feature = "macros")]
 pub mod macros;
+#[cfg(feature = "macros")]
+#[cfg(test)]
+mod macros_test;
 
+#[cfg(feature = "bench")]
 mod bench;
 mod valid;
 #[cfg(test)]
