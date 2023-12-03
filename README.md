@@ -13,8 +13,8 @@ Validate variable internal state when the variable is accessed.
 - Wrapper struct `Valid<T: Validate>` implements `Deref` and `DerefMut` traits, and validates
   the internal state when the variable is accessed.
 
-For example, If in your program you have a struct `Foo { a: u64 }` and you want to make sure
-that `a` is always less than to `10`, you can implement `Validate` trait for `Foo` and use
+For example, If in your program you have a struct `Foo(u64)` and you want to make sure
+that `a` is always less than to `5`, you can implement `Validate` trait for `Foo` and use
 `less!` macro to validate `a`.
 
 ```rust
