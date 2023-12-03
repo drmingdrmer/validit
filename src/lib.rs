@@ -33,9 +33,12 @@
 //! # }
 //! ```
 
+#![cfg_attr(feature = "bench", feature(test))]
+
 #[cfg(feature = "macros")]
 pub mod macros;
 
+mod bench;
 mod valid;
 #[cfg(test)]
 mod valid_test;

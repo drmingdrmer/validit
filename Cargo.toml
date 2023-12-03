@@ -33,6 +33,9 @@ macros = ["dep:anyerror"]
 # Stable rust does not support backtrace.
 backtrace = ["anyerror/backtrace"]
 
+# Enable benchmark
+bench = []
+
 
 [package.metadata.docs.rs]
 

@@ -6,6 +6,9 @@ test:
 	cargo test
 	cargo +nightly test --features backtrace
 
+bench:
+	cargo bench --features bench
+
 fmt:
 	cargo +nightly fmt
 
