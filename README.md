@@ -4,6 +4,8 @@
 [![Discord Chat](https://img.shields.io/discord/1180545690976391251?logo=discord&style=flat-square)](https://discord.gg/fFPsTqYqUg)
 [![Crates.io](https://img.shields.io/crates/v/validit.svg)](https://crates.io/crates/validit)
 [![docs.rs](https://docs.rs/validit/badge.svg)](https://docs.rs/validit)
+![Crates.io](https://img.shields.io/crates/d/validit.svg)
+![Crates.io](https://img.shields.io/crates/dv/validit.svg)
 
 Validate variable internal state when the variable is accessed.
 
@@ -34,7 +36,7 @@ fn main() {
     let _x = foo.a; // Good
 
     let invalid = Valid::new(Foo { a: 10 });
-    let _x = foo.a; // Panic
+    let _x = invalid.a; // Panic
 }
 ```
 

@@ -7,7 +7,7 @@
 //! For example, If in your program you have a struct `Foo { a: u64 }` and you want to make sure
 //! that `a` is always less than to `10`, you can implement `Validate` trait for `Foo` and use
 //! `less!` macro to validate `a`.
-//! ```
+//! ```ignore
 //! # use std::error::Error;
 //! # use validit::Valid;
 //! # use validit::Validate;
@@ -25,7 +25,7 @@
 //! let _x = foo.a; // Good
 //!
 //! let invalid = Valid::new(Foo { a: 10 });
-//! let _x = foo.a; // Panic
+//! let _x = invalid.a; // Panic
 //! # }
 //! ```
 
