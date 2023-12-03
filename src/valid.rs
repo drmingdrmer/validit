@@ -30,6 +30,17 @@ use crate::Validate;
 /// let f = Valid::new(Foo { a: 20 });
 /// let _x = f.a; // panic: panicked at 'invalid state: expect: self.a(20) <= 10(10) ...
 /// ```
+///
+/// Validation is triggered when:
+/// - `Deref` or `DerefMut` is called. This is the major use case.
+/// - `Clone` is called.
+/// - `PartialEq` or `Eq` is called.
+/// - `PartialOrd` or `Ord` is called.
+/// - `Hash` is called.
+///
+/// Validation is not triggered when:
+/// - `Copy`: Because it is just a byte copy.
+/// - `Debug` and `Display`: for being able to examine the value for debugging.
 pub struct Valid<T>
 where T: Validate
 {
@@ -46,15 +57,27 @@ impl<T: Validate> Valid<T> {
         }
     }
 
+    /// Set whether to validate the state when accessing it.
+    pub fn enable_validation(&mut self, enabled: bool) {
+        self.enabled = enabled;
+    }
+
+    /// Get whether to validate the state when accessing it.
+    pub fn is_enabled(&self) -> bool {
+        self.enabled
+    }
+
     /// Return a reference to the wrapped value: `Valid<&T>`.
     pub fn as_ref(&self) -> Valid<&T> {
         Valid {
             enabled: self.enabled,
-            inner: &self.inner,
+            inner: self.deref(),
         }
     }
 
     /// Consume self and return the wrapped value.
+    ///
+    /// This does NOT validate the state.
     pub fn into_inner(self) -> T {
         self.inner
     }
@@ -96,7 +119,7 @@ impl<T: PartialEq> PartialEq for Valid<T>
 where T: Validate
 {
     fn eq(&self, other: &Self) -> bool {
-        self.inner.eq(&other.inner)
+        PartialEq::eq(self.deref(), other.deref())
     }
 }
 
@@ -106,7 +129,7 @@ impl<T: PartialOrd> PartialOrd for Valid<T>
 where T: Validate
 {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        PartialOrd::partial_cmp(&self.inner, &other.inner)
+        PartialOrd::partial_cmp(self.deref(), other.deref())
     }
 }
 
@@ -114,7 +137,7 @@ impl<T: Ord> Ord for Valid<T>
 where T: Validate
 {
     fn cmp(&self, other: &Self) -> Ordering {
-        Ord::cmp(&self.inner, &other.inner)
+        Ord::cmp(self.deref(), other.deref())
     }
 }
 
@@ -122,6 +145,7 @@ impl<T: Debug> Debug for Valid<T>
 where T: Validate
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        // Do not use `deref()`, skip validation so that the state can be displayed.
         self.inner.fmt(f)
     }
 }
@@ -130,6 +154,7 @@ impl<T: Display> Display for Valid<T>
 where T: Validate
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        // Do not use `deref()`, skip validation so that the state can be displayed.
         self.inner.fmt(f)
     }
 }
@@ -140,7 +165,7 @@ where T: Validate
     fn clone(&self) -> Self {
         Self {
             enabled: self.enabled,
-            inner: self.inner.clone(),
+            inner: self.deref().clone(),
         }
     }
 }
@@ -162,6 +187,6 @@ impl<T: Hash> Hash for Valid<T>
 where T: Validate
 {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.inner.hash(state)
+        self.deref().hash(state)
     }
 }

@@ -13,8 +13,11 @@ impl Validate for Foo {
 }
 
 #[test]
-fn test_foo() {
-    println!("foo: {:?}", Valid::new(Foo(1)).0); // Good
+fn test_valid() {
+    let _a = Valid::new(Foo(1)).0;
 
-    // println!("invalid: {:?}", Valid::new(Foo(10)).0); // Panic
+    let res = std::panic::catch_unwind(|| {
+        let _a = Valid::new(Foo(10)).0;
+    });
+    assert!(res.is_err());
 }
