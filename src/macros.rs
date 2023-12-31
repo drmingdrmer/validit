@@ -36,16 +36,29 @@ pub fn make_err(fmt: Arguments) -> anyerror::AnyError {
 /// ```
 #[macro_export]
 macro_rules! be_true {
+    // 0 args
+    ($($call: ident).+()) => {{
+        let __result = $($call).+();
+        if __result {
+            // Ok
+        } else {
+            Err($crate::macros::make_err(format_args!(
+                "expect to be true: {}()",
+                stringify!($($call).+)
+            )))?;
+        }
+    }};
+
     // 1 args
-    ($call: tt($a: expr)) => {{
+    ($($call: ident).+($a: expr)) => {{
         let __a = $a;
-        let __result = $call(__a);
+        let __result = $($call).+(__a);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
             )))?;
@@ -53,16 +66,16 @@ macro_rules! be_true {
     }};
 
     // 2 args
-    ($call: tt($a: expr, $b: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr)) => {{
         let __a = $a;
         let __b = $b;
-        let __result = $call(__a, __b);
+        let __result = $($call).+(__a, __b);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -72,17 +85,17 @@ macro_rules! be_true {
     }};
 
     // 3 args
-    ($call: tt($a: expr, $b: expr, $c: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
-        let __result = $call(__a, __b, __c);
+        let __result = $($call).+(__a, __b, __c);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -94,18 +107,18 @@ macro_rules! be_true {
     }};
 
     // 4 args
-    ($call: tt($a: expr, $b: expr, $c: expr, $d: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr, $d: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
         let __d = $d;
-        let __result = $call(__a, __b, __c, __d);
+        let __result = $($call).+(__a, __b, __c, __d);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -119,19 +132,19 @@ macro_rules! be_true {
     }};
 
     // 5 args
-    ($call: tt($a: expr, $b: expr, $c: expr, $d: expr, $e: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr, $d: expr, $e: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
         let __d = $d;
         let __e = $e;
-        let __result = $call(__a, __b, __c, __d, __e);
+        let __result = $($call).+(__a, __b, __c, __d, __e);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -147,20 +160,20 @@ macro_rules! be_true {
     }};
 
     // 6 args
-    ($call: tt($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
         let __d = $d;
         let __e = $e;
         let __f = $f;
-        let __result = $call(__a, __b, __c, __d, __e, __f);
+        let __result = $($call).+(__a, __b, __c, __d, __e, __f);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -178,7 +191,7 @@ macro_rules! be_true {
     }};
 
     // 7 args
-    ($call: tt($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr, $g: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr, $g: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
@@ -186,13 +199,13 @@ macro_rules! be_true {
         let __e = $e;
         let __f = $f;
         let __g = $g;
-        let __result = $call(__a, __b, __c, __d, __e, __f, __g);
+        let __result = $($call).+(__a, __b, __c, __d, __e, __f, __g);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
@@ -212,7 +225,7 @@ macro_rules! be_true {
     }};
 
     // 8 args
-    ($call: tt($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr, $g: expr, $h: expr)) => {{
+    ($($call: ident).+($a: expr, $b: expr, $c: expr, $d: expr, $e: expr, $f: expr, $g: expr, $h: expr)) => {{
         let __a = $a;
         let __b = $b;
         let __c = $c;
@@ -221,13 +234,13 @@ macro_rules! be_true {
         let __f = $f;
         let __g = $g;
         let __h = $h;
-        let __result = $call(__a, __b, __c, __d, __e, __f, __g, __h);
+        let __result = $($call).+(__a, __b, __c, __d, __e, __f, __g, __h);
         if __result {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
                 "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
-                stringify!($call),
+                stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
