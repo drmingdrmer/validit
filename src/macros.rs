@@ -3,7 +3,7 @@
 use std::fmt::Arguments;
 
 pub fn make_err(fmt: Arguments) -> anyerror::AnyError {
-    anyerror::AnyError::error(format!("{}", fmt))
+    anyerror::AnyError::error(format!("{fmt}"))
 }
 
 /// Assert that function call `call(a,b,...)`(up to 8 arguments) to return true, otherwise it return
@@ -19,7 +19,7 @@ pub fn make_err(fmt: Arguments) -> anyerror::AnyError {
 ///     Ok(())
 /// }
 /// assert!(expect_true(1,2).is_ok());
-/// assert_eq!("expect to be true: le(a(3), b(2))", expect_true(3,2).unwrap_err().to_string());
+/// assert!(expect_true(3,2).unwrap_err().to_string().starts_with("expect to be true: le(a(3), b(2)) at "));
 /// ```
 ///
 /// Another example with 3 arguments:
@@ -32,7 +32,7 @@ pub fn make_err(fmt: Arguments) -> anyerror::AnyError {
 ///     Ok(())
 /// }
 /// assert!(expect_true3(1,10).is_ok());
-/// assert_eq!("expect to be true: mid(a(6), 5(5), b(10))", expect_true3(6,10).unwrap_err().to_string());
+/// assert!(expect_true3(6,10).unwrap_err().to_string().starts_with("expect to be true: mid(a(6), 5(5), b(10)) at "));
 /// ```
 #[macro_export]
 macro_rules! be_true {
@@ -43,8 +43,9 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}()",
-                stringify!($($call).+)
+                "expect to be true: {}() at {}:{}",
+                stringify!($($call).+),
+                file!(), line!(),
             )))?;
         }
     }};
@@ -57,10 +58,11 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}))",
+                "expect to be true: {}({}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -74,12 +76,13 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
                 stringify!($b),
                 __b,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -94,7 +97,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -102,6 +105,7 @@ macro_rules! be_true {
                 __b,
                 stringify!($c),
                 __c,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -117,7 +121,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -127,6 +131,7 @@ macro_rules! be_true {
                 __c,
                 stringify!($d),
                 __d,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -143,7 +148,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -155,6 +160,7 @@ macro_rules! be_true {
                 __d,
                 stringify!($e),
                 __e,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -172,7 +178,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -186,6 +192,7 @@ macro_rules! be_true {
                 __e,
                 stringify!($f),
                 __f,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -204,7 +211,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -220,6 +227,7 @@ macro_rules! be_true {
                 __f,
                 stringify!($g),
                 __g,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -239,7 +247,7 @@ macro_rules! be_true {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}))",
+                "expect to be true: {}({}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?}), {}({:?})) at {}:{}",
                 stringify!($($call).+),
                 stringify!($a),
                 __a,
@@ -257,6 +265,7 @@ macro_rules! be_true {
                 __g,
                 stringify!($h),
                 __h,
+                file!(), line!(),
             )))?;
         }
     }};
@@ -273,7 +282,7 @@ macro_rules! be_true {
 ///     Ok(())
 /// }
 /// assert!(expect_less(1,2).is_ok());
-/// assert_eq!("expect: a(2) < b(2)", expect_less(2,2).unwrap_err().to_string());
+/// assert!(expect_less(2,2).unwrap_err().to_string().starts_with("expect: a(2) < b(2) at "));
 /// ```
 #[macro_export]
 macro_rules! less {
@@ -284,12 +293,13 @@ macro_rules! less {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect: {}({:?}) {} {}({:?})",
+                "expect: {}({:?}) < {}({:?}) at {}:{}",
                 stringify!($a),
                 a,
-                "<",
                 stringify!($b),
                 b,
+                file!(),
+                line!(),
             )))?;
         }
     }};
@@ -306,7 +316,7 @@ macro_rules! less {
 ///     Ok(())
 /// }
 /// assert!(expect_greater(2,1).is_ok());
-/// assert_eq!("expect: a(2) > b(2)", expect_greater(2,2).unwrap_err().to_string());
+/// assert!(expect_greater(2,2).unwrap_err().to_string().starts_with("expect: a(2) > b(2) at "));
 /// ```
 #[macro_export]
 macro_rules! greater {
@@ -317,12 +327,13 @@ macro_rules! greater {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect: {}({:?}) {} {}({:?})",
+                "expect: {}({:?}) > {}({:?}) at {}:{}",
                 stringify!($a),
                 a,
-                ">",
                 stringify!($b),
                 b,
+                file!(),
+                line!(),
             )))?;
         }
     }};
@@ -339,7 +350,7 @@ macro_rules! greater {
 ///     Ok(())
 /// }
 /// assert!(expect_less_equal(2,2).is_ok());
-/// assert_eq!("expect: a(3) <= b(2)", expect_less_equal(3,2).unwrap_err().to_string());
+/// assert!(expect_less_equal(3,2).unwrap_err().to_string().starts_with("expect: a(3) <= b(2) at "));
 /// ```
 #[macro_export]
 macro_rules! less_equal {
@@ -350,12 +361,13 @@ macro_rules! less_equal {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect: {}({:?}) {} {}({:?})",
+                "expect: {}({:?}) <= {}({:?}) at {}:{}",
                 stringify!($a),
                 a,
-                "<=",
                 stringify!($b),
                 b,
+                file!(),
+                line!(),
             )))?;
         }
     }};
@@ -372,7 +384,7 @@ macro_rules! less_equal {
 ///     Ok(())
 /// }
 /// assert!(expect_greater_equal(2,2).is_ok());
-/// assert_eq!("expect: a(2) >= b(3)", expect_greater_equal(2,3).unwrap_err().to_string());
+/// assert!(expect_greater_equal(2,3).unwrap_err().to_string().starts_with("expect: a(2) >= b(3) at "));
 /// ```
 #[macro_export]
 macro_rules! greater_equal {
@@ -383,12 +395,13 @@ macro_rules! greater_equal {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect: {}({:?}) {} {}({:?})",
+                "expect: {}({:?}) >= {}({:?}) at {}:{}",
                 stringify!($a),
                 a,
-                ">=",
                 stringify!($b),
                 b,
+                file!(),
+                line!(),
             )))?;
         }
     }};
@@ -405,7 +418,7 @@ macro_rules! greater_equal {
 ///     Ok(())
 /// }
 /// assert!(expect_equal(2,2).is_ok());
-/// assert_eq!("expect: a(3) == b(2)", expect_equal(3,2).unwrap_err().to_string());
+/// assert!(expect_equal(3,2).unwrap_err().to_string().starts_with("expect: a(3) == b(2) at "));
 /// ```
 #[macro_export]
 macro_rules! equal {
@@ -416,12 +429,13 @@ macro_rules! equal {
             // Ok
         } else {
             Err($crate::macros::make_err(format_args!(
-                "expect: {}({:?}) {} {}({:?})",
+                "expect: {}({:?}) == {}({:?}) at {}:{}",
                 stringify!($a),
                 a,
-                "==",
                 stringify!($b),
                 b,
+                file!(),
+                line!(),
             )))?;
         }
     }};

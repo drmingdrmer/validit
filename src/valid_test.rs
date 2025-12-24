@@ -101,12 +101,12 @@ fn test_valid_trigger_validation() {
 
     // Debug does not trigger panic
     assert_no_panic(|| {
-        format!("{:?}", Foo::new_valid(20));
+        let _ = format!("{:?}", Foo::new_valid(20));
     });
 
     // Display does not trigger panic
     assert_no_panic(|| {
-        format!("{}", Foo::new_valid(20));
+        let _ = format!("{}", Foo::new_valid(20));
     });
 
     // Clone trigger panic
