@@ -1,12 +1,12 @@
 extern crate test;
 use std::error::Error;
 
-use test::black_box;
 use test::Bencher;
+use test::black_box;
 
-use crate::less_equal;
 use crate::Valid;
 use crate::Validate;
+use crate::less_equal;
 
 struct Foo {
     a: u64,

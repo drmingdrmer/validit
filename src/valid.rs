@@ -90,10 +90,10 @@ where T: Validate
 
     fn deref(&self) -> &Self::Target {
         #[cfg(debug_assertions)]
-        if self.enabled {
-            if let Err(e) = self.inner.validate() {
-                panic!("invalid state: {}", e);
-            }
+        if self.enabled
+            && let Err(e) = self.inner.validate()
+        {
+            panic!("invalid state: {}", e);
         }
 
         &self.inner
@@ -105,10 +105,10 @@ where T: Validate
 {
     fn deref_mut(&mut self) -> &mut Self::Target {
         #[cfg(debug_assertions)]
-        if self.enabled {
-            if let Err(e) = self.inner.validate() {
-                panic!("invalid state: {}", e);
-            }
+        if self.enabled
+            && let Err(e) = self.inner.validate()
+        {
+            panic!("invalid state: {}", e);
         }
 
         &mut self.inner

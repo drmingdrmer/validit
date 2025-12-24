@@ -6,10 +6,10 @@ use std::fmt::Display;
 use std::fmt::Formatter;
 use std::panic::UnwindSafe;
 
+use crate::ValidateExt;
 use crate::less_equal;
 use crate::valid::Valid;
 use crate::validate::Validate;
-use crate::ValidateExt;
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash, Copy)]
 struct Foo {

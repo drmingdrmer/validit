@@ -2,7 +2,7 @@
 name = "validit"
 readme = "README.md"
 version = "0.2.5"
-edition = "2021"
+edition = "2024"
 authors = [
     "Zhang Yanpo <drdr.xp@gmail.com>",
 ]

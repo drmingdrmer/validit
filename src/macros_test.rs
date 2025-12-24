@@ -46,125 +46,163 @@ fn test_macro_be_true() {
         r
     }
 
-    assert!((|| {
-        be_true!(arg0_true());
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg1(true));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg2(true, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg3(true, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg4(true, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg5(true, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg6(true, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg7(true, 1, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
-    assert!((|| {
-        be_true!(arg8(true, 1, 1, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .is_ok());
+    assert!(
+        (|| {
+            be_true!(arg0_true());
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg1(true));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg2(true, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg3(true, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg4(true, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg5(true, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg6(true, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg7(true, 1, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
+    assert!(
+        (|| {
+            be_true!(arg8(true, 1, 1, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .is_ok()
+    );
 
-    assert!((|| {
-        be_true!(arg0_false());
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg0_false() at "));
+    assert!(
+        (|| {
+            be_true!(arg0_false());
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg0_false() at ")
+    );
 
-    assert!((|| {
-        be_true!(arg1(false));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg1(false(false)) at "));
+    assert!(
+        (|| {
+            be_true!(arg1(false));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg1(false(false)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg2(false, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg2(false(false), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg2(false, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg2(false(false), 1(1)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg3(false, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg3(false(false), 1(1), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg3(false, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg3(false(false), 1(1), 1(1)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg4(false, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg4(false(false), 1(1), 1(1), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg4(false, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg4(false(false), 1(1), 1(1), 1(1)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg5(false, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg5(false(false), 1(1), 1(1), 1(1), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg5(false, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg5(false(false), 1(1), 1(1), 1(1), 1(1)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg6(false, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg6(false(false), 1(1), 1(1), 1(1), 1(1), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg6(false, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with("expect to be true: arg6(false(false), 1(1), 1(1), 1(1), 1(1), 1(1)) at ")
+    );
 
-    assert!((|| {
-        be_true!(arg7(false, 1, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with("expect to be true: arg7(false(false), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1)) at "));
+    assert!(
+        (|| {
+            be_true!(arg7(false, 1, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with(
+            "expect to be true: arg7(false(false), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1)) at "
+        )
+    );
 
-    assert!((|| {
-        be_true!(arg8(false, 1, 1, 1, 1, 1, 1, 1));
-        Ok::<(), AnyError>(())
-    })()
-    .unwrap_err()
-    .to_string()
-    .starts_with(
-        "expect to be true: arg8(false(false), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1)) at "
-    ));
+    assert!(
+        (|| {
+            be_true!(arg8(false, 1, 1, 1, 1, 1, 1, 1));
+            Ok::<(), AnyError>(())
+        })()
+        .unwrap_err()
+        .to_string()
+        .starts_with(
+            "expect to be true: arg8(false(false), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1), 1(1)) at "
+        )
+    );
 }
 
 #[test]
