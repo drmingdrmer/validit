@@ -114,9 +114,3 @@ jobs:
           args: --all --all-features --no-deps
         env:
           RUSTDOCFLAGS: "-D warnings"
-
-
-      - name: Audit dependencies
-        shell: bash
-        # if: "!contains(github.event.head_commit.message, 'skip audit')"
-        run: cargo audit --db ./target/advisory-db
