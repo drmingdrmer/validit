@@ -1,8 +1,9 @@
 [package]
 name = "validit"
 readme = "README.md"
-version = "0.2.5"
+version = "0.2.6"
 edition = "2024"
+rust-version = "1.88"
 authors = [
     "Zhang Yanpo <drdr.xp@gmail.com>",
 ]
